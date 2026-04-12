@@ -1,25 +1,42 @@
-# Tornado Scene — Real-Time Volumetric Rendering
+# Tornado Scene - Real-Time Volumetric Rendering
 
 A real-time 3D tornado scene built with **OpenGL 4.5** and **C++20**, developed as the final project for TDT4230: Graphics and Visualisation at NTNU.
 
-The core technique is **volumetric ray marching**: the tornado funnel, storm cloud, and debris field are all rendered as animated procedural density fields — no polygon meshes involved.
+The core technique is **volumetric ray marching**: the tornado funnel, storm cloud, and debris field are all rendered as animated procedural density fields - no polygon meshes involved.
 
 ---
 
 ## Features
 
-- **Volumetric tornado** — procedural SDF-based funnel with height-varying radius, Gaussian pinch, animated twist/wobble/sway, and two layers of noise detail (shape noise + filament noise)
-- **Cumulonimbus storm cloud** — ellipsoid SDF with animated noise displacement and sun-edge albedo shading
-- **Debris ring** — volumetric torus shell around the tornado base with numerically-estimated surface normals
-- **Deferred rendering pipeline** — G-buffer (position, albedo, normal, AO, depth) → lighting → volumetric composite
-- **Physically-based volume lighting** — Beer-Lambert transmittance, Henyey-Greenstein phase function, self-shadowing light march
+- **Volumetric tornado** - procedural SDF-based funnel with height-varying radius, Gaussian pinch, animated twist/wobble/sway, and two layers of noise detail (shape noise + filament noise)
+- **Cumulonimbus storm cloud** - ellipsoid SDF with animated noise displacement and sun-edge albedo shading
+- **Debris ring** - volumetric torus shell around the tornado base with numerically-estimated surface normals
+- **Deferred rendering pipeline** - G-buffer (position, albedo, normal, AO, depth) -> lighting -> volumetric composite
+- **Physically-based volume lighting** - Beer-Lambert transmittance, Henyey-Greenstein phase function, self-shadowing light march
 - **Ray-marched soft shadows** cast by the tornado onto the terrain
-- **Procedural terrain** — 512×512 noise heightmap, partitioned into a 20×20 tile grid, normal-mapped with grass/rock texture blend
-- **Billboard trees** — placed via Poisson disk sampling
-- **Atmospheric fog** — exponential height-based fog
-- **Lightning flash** — animated procedural lightning bolts with configurable frequency and intensity
-- **Blue noise jitter** — eliminates ray march banding using a 1024×1024 blue noise texture
-- **Dear ImGui overlay** — live tweaking of all volume parameters without recompilation
+- **Procedural terrain** - 512x512 noise heightmap, partitioned into a 20x20 tile grid, normal-mapped with grass/rock texture blend
+- **Billboard trees** - placed via Poisson disk sampling
+- **Atmospheric fog** - exponential height-based fog
+- **Lightning flash** - animated procedural lightning bolts with configurable frequency and intensity
+- **Blue noise jitter** - eliminates ray march banding using a 1024x1024 blue noise texture
+- **Dear ImGui overlay** - live tweaking of all volume parameters without recompilation
+
+---
+
+## Demo
+
+<!-- Upload an MP4/MOV by dragging it into the GitHub web editor - it will generate a link like the one below -->
+
+https://github.com/user-attachments/assets/YOUR-VIDEO-ID-HERE
+
+<!-- Or use a YouTube thumbnail (replace YOUR_VIDEO_ID): -->
+<!-- [![Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID) -->
+
+---
+
+## Screenshots
+
+*Add screenshots here.*
 
 ---
 
@@ -28,8 +45,8 @@ The core technique is **volumetric ray marching**: the tornado funnel, storm clo
 Requirements: **CMake 3.14+**, a C++20 compiler, **Python 3** (for GLAD generation), and **OpenMP**.
 
 ```bash
-git clone --recurse-submodules https://github.com/YOUR_USERNAME/TornadoSceneProject.git
-cd TornadoSceneProject
+git clone --recurse-submodules https://github.com/chripaul79/TornadoRayMarcher.git
+cd TornadoRayMarcher
 cmake -S . -B build
 cmake --build build
 ./build/tornado
@@ -69,33 +86,40 @@ All required libraries are included as submodules or vendored in `lib/`.
 
 ```
 src/
-  scenelogic.cpp/.h       — Main scene setup, update, and render loop
-  sceneGraph.cpp/.hpp     — Scene node hierarchy
+  scenelogic.cpp/.h       - Main scene setup, update, and render loop
+  sceneGraph.cpp/.hpp     - Scene node hierarchy
   utilities/
-    terrain.cpp/.h        — Heightmap and tile mesh generation
-    trees.cpp/.h          — Billboard tree placement (Poisson disk)
-    shapes.cpp/.h         — Primitive geometry helpers
-    shader.hpp            — Shader loader with #include support
+    terrain.cpp/.h        - Heightmap and tile mesh generation
+    trees.cpp/.h          - Billboard tree placement (Poisson disk)
+    shapes.cpp/.h         - Primitive geometry helpers
+    shader.hpp            - Shader loader with #include support
   ui/
-    volume_imgui.cpp/.h   — ImGui parameter panel
+    volume_imgui.cpp/.h   - ImGui parameter panel
 res/
   shaders/
-    volume_tornado.frag   — Main ray march pass (tornado + cloud + debris)
-    tornado_density.glsl  — Shared tornado SDF (included by multiple shaders)
-    tornado_debris.glsl   — Debris density field
-    composite_final.frag  — Tone mapping and final composite
-    simple.vert/.frag     — Geometry pass
-  textures/               — Terrain textures, skybox, blue noise, tree sprite
+    volume_tornado.frag   - Main ray march pass (tornado + cloud + debris)
+    tornado_density.glsl  - Shared tornado SDF (included by multiple shaders)
+    tornado_debris.glsl   - Debris density field
+    composite_final.frag  - Tone mapping and final composite
+    simple.vert/.frag     - Geometry pass
+  textures/               - Terrain textures, skybox, blue noise, tree sprite
 ```
 
 ---
 
-## Screenshots
+## References & Credits
 
-*Add screenshots or a demo video here.*
+- **Inigo Quilez** - [iquilezles.org](https://iquilezles.org)
+  Ray marching fundamentals, signed distance functions, noise functions, soft shadows, and domain deformation. Primary reference for the tornado density function and AABB intersection logic.
+
+- **Maxime Heckel** - [Real-Time Cloudscapes with Volumetric Raymarching](https://blog.maximeheckel.com/posts/real-time-cloudscapes-with-volumetric-raymarching/)
+  Volume rendering equation, Beer-Lambert transmittance, and Henyey-Greenstein phase function as applied to real-time atmospheric rendering.
+
+- **LearnOpenGL** - [learnopengl.com](https://learnopengl.com)
+  Deferred shading pipeline, framebuffer objects, cubemap skyboxes, instanced rendering, and GLSL fundamentals.
 
 ---
 
 ## License
 
-Academic project — NTNU TDT4230, Spring 2026.
+Academic project - NTNU TDT4230, Spring 2026.
