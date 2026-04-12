@@ -31,11 +31,11 @@ The core technique is **volumetric ray marching**: the tornado funnel, storm clo
 
 
 Showcase of tornado scene
-https://github.com/user-attachments/assets/2030dbcb-16ec-4f2a-a2dc-d1f97d683c72
+![Tornado_showcase-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/be7e0182-e95b-44f7-be3b-65464a96161e)
 
 
 Dear ImGui showcase
-https://github.com/user-attachments/assets/7930f44c-0635-4241-a1a9-bb977c5fc7c9
+![ImGUI_showcase-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/da920fb9-ad1d-4315-bbbe-e82650fe4548)
 
 
 ---
