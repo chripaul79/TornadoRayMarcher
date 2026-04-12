@@ -40,6 +40,10 @@ https://github.com/user-attachments/assets/YOUR-VIDEO-ID-HERE
 
 ---
 
+## Requirements
+
+> **GPU:** Volumetric ray marching is GPU-intensive. A dedicated Nvidia or AMD GPU (GTX 1060 / RX 580 or better) is recommended for smooth framerates. Integrated graphics will struggle significantly. A performance mode (`F` key) is available to reduce ray march quality if needed.
+
 ## Building
 
 Requirements: **CMake 3.14+**, a C++20 compiler, **Python 3** (for GLAD generation), and **OpenMP**.
