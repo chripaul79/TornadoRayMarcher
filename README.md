@@ -107,6 +107,18 @@ res/
 
 ---
 
+## Asset Credits
+
+All textures are free assets used under their respective licenses.
+
+| Texture | Source |
+|---------|--------|
+| `aerial_grass_rock_*` | [Poly Haven](https://polyhaven.com) (CC0) |
+| `rocky_terrain_02_*` | [Poly Haven](https://polyhaven.com) (CC0) |
+| Tree sprite | [Vecteezy](https://www.vecteezy.com) (Free license) |
+
+---
+
 ## References & Credits
 
 - **Inigo Quilez** - [iquilezles.org](https://iquilezles.org)
