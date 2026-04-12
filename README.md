@@ -1,3 +1,5 @@
+
+
 # Tornado Scene - Real-Time Volumetric Rendering
 
 A real-time 3D tornado scene built with **OpenGL 4.5** and **C++20**, developed as the final project for TDT4230: Graphics and Visualisation at NTNU.
@@ -27,7 +29,7 @@ The core technique is **volumetric ray marching**: the tornado funnel, storm clo
 
 <!-- Upload an MP4/MOV by dragging it into the GitHub web editor - it will generate a link like the one below -->
 
-https://github.com/user-attachments/assets/YOUR-VIDEO-ID-HERE
+https://github.com/user-attachments/assets/ImGUI_showcase
 
 <!-- Or use a YouTube thumbnail (replace YOUR_VIDEO_ID): -->
 <!-- [![Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID) -->
