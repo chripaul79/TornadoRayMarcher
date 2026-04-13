@@ -42,7 +42,22 @@ Dear ImGui showcase
 
 ## Screenshots
 
-*Add screenshots here.*
+### ImGui Controls
+![TornadoSnapshot_imgui](https://github.com/user-attachments/assets/66ae5b06-0008-4009-8ebb-71bf776e8d64)
+Real-time parameter control via ImGui — tweak density, scattering, and lighting on the fly while the tornado simulation runs.
+
+### Funnel Close-up
+![TornadoSnapshot_closeup](https://github.com/user-attachments/assets/0356fd44-50d2-485d-bd5a-6a9d9597caf5)
+A close-up view of the tornado funnel, showing the volumetric density detail and internal light scattering of the vortex structure.
+
+### Terrain Lighting
+![TornadoSnapshot_terrainLighting](https://github.com/user-attachments/assets/de981e2e-b052-434b-98cd-336dcf58e0c6)
+Terrain illuminated by the scene's dynamic lighting — showcasing how the volumetric atmosphere interacts with the ground below.
+
+### Billboards & Skybox
+![TornadoSnapshot_billboardsAndSkybox](https://github.com/user-attachments/assets/d77f1aa9-0a86-4358-9df8-fd296d0b00b4)
+Billboard debris and a dramatic skybox set the scene, grounding the tornado in a cohesive atmospheric environment.
+
 
 ---
 
