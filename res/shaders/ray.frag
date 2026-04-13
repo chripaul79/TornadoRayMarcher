@@ -42,7 +42,8 @@ float mapShadowCombined(vec3 p)
         return dCloud;
     if (!debrisInBounds(p))
         return dCloud;
-    // Outward bias so shadow isn’t fully opaque inside the debris shell
+
+    // Outward bias so shadow isn’t fully opaque inside the debris shell, we basically fake light leakage for the debris
     float relax = max(uDebrisRadiusMinor, 0.2) * 1.35;
     float dDeb = debrisShellSDF(p) + relax;
     return min(dCloud, dDeb);
@@ -63,7 +64,7 @@ float tornadoShadow(vec3 surfacePos, vec3 lightDir) {
         if (d <= 0.0)
             return 0.0;
         if (u_shadowQuality == 0)
-            penumbra = min(penumbra, u_shadowSoftness * d / max(t, 1e-4));
+            penumbra = min(penumbra, u_shadowSoftness * d / max(t, 1e-4)); // Inigo Quilez soft shadow technique
         float stepLen = max(d, minStep);
         p += rd * stepLen;
         t += stepLen;
@@ -78,27 +79,6 @@ vec3 getSkyColor(vec3 viewDir) {
     vec3 horizon = vec3(0.74, 0.83, 0.95);
     vec3 zenith = vec3(0.36, 0.60, 0.90);
     return mix(horizon, zenith, t);
-}
-
-float ggxDistribution(float NdotH, float roughness) {
-    float a  = roughness * roughness;
-    float a2 = a * a;
-    float d  = NdotH * NdotH * (a2 - 1.0) + 1.0;
-    return a2 / (3.14159265 * d * d + 1e-7);
-}
-
-float schlickG1(float NdotX, float k) {
-    return NdotX / (NdotX * (1.0 - k) + k + 1e-7);
-}
-
-float smithGGX(float NdotV, float NdotL, float roughness) {
-    float r1 = roughness + 1.0;
-    float k  = (r1 * r1) / 8.0;
-    return schlickG1(NdotV, k) * schlickG1(NdotL, k);
-}
-
-vec3 fresnelSchlick(float cosTheta, vec3 F0) {
-    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 
 void main() {
@@ -150,23 +130,26 @@ void main() {
     float NdotV = max(dot(normalV, V), 0.0);
     float HdotV = max(dot(H, V), 0.0);
 
-    vec3 worldPos = (invView * vec4(fragPosV, 1.0)).xyz;
+    vec3 worldPos = (invView * vec4(fragPosV, 1.0)).xyz; // Terrain pixel
     vec3 Lw = normalize(-sunDirectionWorld);
 
     float torShadow = 1.0;
     if (NdotL > 0.0)
-        torShadow = tornadoShadow(worldPos, Lw);
+        torShadow = tornadoShadow(worldPos, Lw); // Every pixel facing the sun gets shadow test
 
     vec3 F0 = vec3(0.04);
-    float D = ggxDistribution(NdotH, roughness);
-    float G = smithGGX(NdotV, NdotL, roughness);
-    vec3  F = fresnelSchlick(HdotV, F0);
 
-    vec3 specular = (D * G * F) / (4.0 * NdotV * NdotL + 0.001);
-    vec3 kD = (vec3(1.0) - F) * (1.0);
-    vec3 diffuse = kD * albedo / 3.14159265;
+    // ── Blinn-Phong shading ──────────────────────────────────────────────────
+    float shininess = mix(128.0, 4.0, clamp(roughness, 0.0, 1.0));
+
+    float specStrength = mix(0.6, 0.05, clamp(roughness, 0.0, 1.0));
+
+    float specFactor = pow(NdotH, shininess);
+    vec3  specular   = vec3(specStrength) * specFactor;
+
+    vec3 diffuse = albedo / 3.14159265;
 
     vec3 ambient = albedo * 0.18 * ao;
-    vec3 color = ambient + (diffuse + specular) * light.color * NdotL * torShadow;
+    vec3 color   = ambient + (diffuse + specular) * light.color * NdotL * torShadow;
     FragColor = vec4(color, 1.0);
 }

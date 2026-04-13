@@ -220,8 +220,8 @@ float lightMarch(vec3 p)
         }
     }
 
-    float beer   = exp(-opticalDepth);
-    float powder = 1.0 - exp(-opticalDepth * 1.5);
+    float beer   = exp(-opticalDepth);              // Beer's law 0 - fully shadowed, 1 - fully lit
+    float powder = 1.0 - exp(-opticalDepth * 1.5);  // Powder sugar trick
     return beer * powder * 2.2;
 }
 
